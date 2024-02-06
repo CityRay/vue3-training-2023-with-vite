@@ -1,0 +1,23 @@
+<template>
+  <div class="d-flex align-items-center justify-content-center vh-100 bg-primary">
+    <div class="text-center">
+      <h1 class="display-1 fw-bold text-white">404</h1>
+      <p class="fs-3 text-white"> <span class="text-danger">Opps!</span> Page not found.</p>
+      <p class="lead text-white">
+        找不到你所尋的頁面，請確認網址是否正確。
+      </p>
+      <a href="/" class="btn btn-outline-warning text-white mt-3">回到首頁</a>
+    </div>
+  </div>
+</template>
+<script>
+// import Swal from 'sweetalert2';
+// import { Modal } from 'bootstrap';
+
+// const API_URL = `${import.meta.env.VITE_API_URL}/api/${import.meta.env.VITE_API_PATH}/admin`;
+
+export default {
+};
+</script>
+<style lang="scss" scoped>
+</style>
