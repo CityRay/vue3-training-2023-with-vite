@@ -11,13 +11,13 @@ Node.js 版本建議為：20.11.0 以上
 ### 取得專案
 
 ```bash
-git clone
+git clone https://github.com/CityRay/vue3-training-2023-with-vite.git
 ```
 
 ### 移動到專案資料夾
 
 ```bash
-cd
+cd ue3-training-2023-with-vite
 ```
 
 ## 環境變數

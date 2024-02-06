@@ -10,14 +10,11 @@
     </div>
   </div>
 </template>
+
 <script>
-// import Swal from 'sweetalert2';
-// import { Modal } from 'bootstrap';
-
-// const API_URL = `${import.meta.env.VITE_API_URL}/api/${import.meta.env.VITE_API_PATH}/admin`;
-
 export default {
 };
 </script>
+
 <style lang="scss" scoped>
 </style>
