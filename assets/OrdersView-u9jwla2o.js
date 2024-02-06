@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as o,a as r}from"./index-ScyphKIx.js";const s={props:{product:{type:Object,default(){return{imagesUrl:[]}}}},data(){return{innerProduct:{},modal:null}},mounted(){},methods:{}},n=r("h1",null,"訂單管理",-1),a=[n];function c(d,l,u,_,p,i){return t(),o("div",null,a)}const f=e(s,[["render",c]]);export{f as default};
