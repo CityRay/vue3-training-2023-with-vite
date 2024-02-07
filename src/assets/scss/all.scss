@@ -1,0 +1,8 @@
+// 引入順序：function 一定要在 variables 前面，因為 variables 裡面有用到 function 的方法
+@import 'bootstrap/scss/functions';
+@import './helpers/_variables'; // 自定義
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/bootstrap'; // Bootstrap 主檔案
+
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import 'vue-loading-overlay/dist/css/index.css';

@@ -8,9 +8,14 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.DS_Store
 dist
 dist-ssr
+coverage
 *.local
+
+/cypress/videos/
+/cypress/screenshots/
 
 # Editor directories and files
 .vscode/*
@@ -24,7 +29,5 @@ dist-ssr
 *.sw?
 
 # 不需檢查的目錄
-build/*.js
-src/assets/*
-public/*
+build/*
 dist/*

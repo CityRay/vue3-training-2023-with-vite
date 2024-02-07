@@ -91,7 +91,7 @@ export default {
     getProducts(page = 1) {
       this.$http.get(`${API_URL}/products?page=${page}`)
         .then((res) => {
-          console.log('getProducts', res.data);
+          // console.log('getProducts', res.data);
           this.products = res.data.products;
           this.pagination = res.data.pagination;
           this.isLoading = false;

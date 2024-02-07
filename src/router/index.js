@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 
 /**
  * ! name 的名稱不能重複
+ * ! children 的 path 不用加 '/'
  */
 const routes = [
   {

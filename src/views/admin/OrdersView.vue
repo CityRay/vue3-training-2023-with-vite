@@ -62,7 +62,7 @@ export default {
     getOrders(page = 1) {
       this.$http.get(`${API_URL}/orders?page=${page}`)
         .then((res) => {
-          console.log('getOrders', res.data);
+          // console.log('getOrders', res.data);
           this.orders = res.data.orders;
           this.pagination = res.data.pagination;
         })
