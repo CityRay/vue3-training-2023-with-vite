@@ -11,7 +11,7 @@
     <hr />
   </div>
   <div class="container" v-if="!isLoading">
-    <RouterView />
+    <RouterView v-if="checkSuccess" />
   </div>
 
   <FooterComponent />
@@ -32,7 +32,8 @@ export default {
   data() {
     return {
       title: 'ADMIN 管理頁面',
-      isLoading: true
+      isLoading: true,
+      checkSuccess: false
     };
   },
   methods: {
@@ -40,6 +41,7 @@ export default {
       this.$http.post(`${API_URL}/api/user/check`)
         .then((res) => {
           // console.log('userCheck', res.data);
+          this.checkSuccess = true;
         })
         .catch((err) => {
           // console.log(err);

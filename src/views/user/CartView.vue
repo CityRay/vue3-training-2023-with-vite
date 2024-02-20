@@ -37,7 +37,7 @@
               <div class="input-group input-group-sm">
                 <div class="input-group mb-3">
                   <input min="1" type="number" class="form-control" :disabled="loadingItems.includes(item.id)"
-                    v-model.number.lazy="item.qty" @blur="cartQtyChange(item.id, item.qty)" />
+                    v-model.number.lazy="item.qty" @blur="cartQtyChange(item.id, item.product_id, item.qty)" />
                   <span class="input-group-text" id="basic-addon2">
                     {{ item.product.unit }}
                   </span>
@@ -137,11 +137,11 @@ export default {
           this.loadingItems = this.loadingItems.filter(item => item !== 'createOrder');
         });
     },
-    cartQtyChange(id, qty = 1) {
+    cartQtyChange(id, productId, qty = 1) {
       this.loadingItems.push(id);
 
       const data = {
-        product_id: id,
+        product_id: productId,
         qty
       };
 
