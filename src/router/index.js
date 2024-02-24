@@ -58,6 +58,10 @@ const routes = [
     ]
   },
   {
+    path: '/admin/:pathMatch(.*)*',
+    redirect: { name: 'AdminLogin' }
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('@/views/NotFound.vue')
