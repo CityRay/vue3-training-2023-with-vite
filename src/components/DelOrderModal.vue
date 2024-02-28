@@ -1,10 +1,10 @@
 <template>
-  <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  <div class="modal fade" id="delOrderModal" tabindex="-1" role="dialog" aria-labelledby="delOrderModalLabel"
     aria-hidden="true" ref="modal">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title" id="exampleModalLabel">
+          <h5 class="modal-title" id="delOrderModalLabel">
             <span>確認刪除訂單?</span>
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
