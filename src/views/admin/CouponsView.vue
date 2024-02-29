@@ -85,7 +85,7 @@ export default {
 
       this.$http.get(`${API_URL}/coupons?page=${this.currentPage}`)
         .then((res) => {
-          console.log('getCoupons', res.data);
+          // console.log('getCoupons', res.data);
           this.coupons = res.data.coupons;
           this.pagination = res.data.pagination;
         })
