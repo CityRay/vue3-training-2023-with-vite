@@ -44,6 +44,10 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="text-center" v-if="pagination && pagination.total_pages > 0">
+        <PaginationComponent :pagination="pagination" @page-change="onPageChange" />
+      </div>
     </div>
 
     <ArticleModal ref="articleModal" :article="tempArticles" :is-new="isNew" @update-article="updateOrAddArticle" />
@@ -53,6 +57,7 @@
 import Swal from 'sweetalert2';
 
 import ArticleModal from '@/components/ArticleModal.vue';
+import PaginationComponent from '@/components/PaginationComponent.vue';
 
 const API_URL = `${import.meta.env.VITE_API_URL}/api/${import.meta.env.VITE_API_PATH}/admin`;
 
@@ -69,24 +74,28 @@ const articleModel = {
 
 export default {
   components: {
-    ArticleModal
+    ArticleModal,
+    PaginationComponent
   },
   data() {
     return {
       isLoading: true,
       isNew: true,
       articles: [],
-      tempArticles: { ...articleModel }
+      tempArticles: { ...articleModel },
+      pagination: null,
+      currentPage: 1
     };
   },
   methods: {
-    getArticles(page = 1) {
+    getArticles() {
       this.isLoading = true;
 
-      this.$http.get(`${API_URL}/articles?page=${page}`)
+      this.$http.get(`${API_URL}/articles?page=${this.currentPage}`)
         .then((res) => {
           // console.log('getArticles', res.data);
           this.articles = res.data.articles;
+          this.pagination = res.data.pagination;
         })
         .catch((err) => {
           // alert(err.response.data.message);
@@ -217,9 +226,20 @@ export default {
           }
         });
       }
+    },
+    onPageChange(page) {
+      if (this.currentPage !== page) {
+        this.$router.push({ path: this.$route.path, query: { page } });
+        this.currentPage = page;
+        this.getArticles();
+      }
     }
   },
   mounted() {
+    if (this.$route.query.page && this.$route.query.page > 0) {
+      this.currentPage = parseInt(this.$route.query.page, 10);
+    }
+
     this.getArticles();
   }
 };

@@ -39,6 +39,10 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="text-center" v-if="pagination && pagination.total_pages > 0">
+        <PaginationComponent :pagination="pagination" @page-change="onPageChange" />
+      </div>
     </div>
 
     <CouponModal ref="couponModal" :coupon="tempCoupon" :is-new="isNew" @update-coupon="updateOrAddCoupon" />
@@ -48,6 +52,7 @@
 import Swal from 'sweetalert2';
 
 import CouponModal from '@/components/CouponModal.vue';
+import PaginationComponent from '@/components/PaginationComponent.vue';
 
 const API_URL = `${import.meta.env.VITE_API_URL}/api/${import.meta.env.VITE_API_PATH}/admin`;
 
@@ -61,24 +66,28 @@ const couponModel = {
 
 export default {
   components: {
-    CouponModal
+    CouponModal,
+    PaginationComponent
   },
   data() {
     return {
       isLoading: true,
       isNew: true,
       coupons: [],
-      tempCoupon: { ...couponModel }
+      tempCoupon: { ...couponModel },
+      pagination: null,
+      currentPage: 1
     };
   },
   methods: {
     getCoupons() {
       this.isLoading = true;
 
-      this.$http.get(`${API_URL}/coupons`)
+      this.$http.get(`${API_URL}/coupons?page=${this.currentPage}`)
         .then((res) => {
-          // console.log('getCoupons', res.data);
+          console.log('getCoupons', res.data);
           this.coupons = res.data.coupons;
+          this.pagination = res.data.pagination;
         })
         .catch((err) => {
           // alert(err.response.data.message);
@@ -201,9 +210,20 @@ export default {
           }
         });
       }
+    },
+    onPageChange(page) {
+      if (this.currentPage !== page) {
+        this.$router.push({ path: this.$route.path, query: { page } });
+        this.currentPage = page;
+        this.getCoupons();
+      }
     }
   },
   mounted() {
+    if (this.$route.query.page && this.$route.query.page > 0) {
+      this.currentPage = parseInt(this.$route.query.page, 10);
+    }
+
     this.getCoupons();
   }
 };
