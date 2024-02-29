@@ -19,6 +19,14 @@
                     v-model.lazy="innerProduct.imageUrl" />
                 </div>
                 <img v-if="innerProduct.imageUrl" class="img-fluid" :src="innerProduct.imageUrl" alt="image" />
+
+                <div class="mb-3">
+                  <label for="customFile" class="form-label">或 上傳圖片
+                    <i class="fas fa-spinner fa-spin" v-if="fileUploading"></i>
+                  </label>
+                  <input type="file" id="customFile" class="form-control" ref="fileInput" @change="onUploadFile"
+                    :disabled="fileUploading" />
+                </div>
               </div>
               <div class="mb-2" v-for="(img, key) in innerProduct.imagesUrl" :key="img">
                 <div class="mb-3">
@@ -113,6 +121,18 @@ import { Modal } from 'bootstrap';
 
 const API_URL = `${import.meta.env.VITE_API_URL}/api/${import.meta.env.VITE_API_PATH}/admin`;
 
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+
 export default {
   props: {
     product: {
@@ -126,8 +146,9 @@ export default {
   },
   data() {
     return {
+      modal: null,
       innerProduct: {},
-      modal: null
+      fileUploading: false
     };
   },
   mounted() {
@@ -158,6 +179,39 @@ export default {
     },
     deleteImage() {
       this.innerProduct.imagesUrl.pop();
+    },
+    onUploadFile() {
+      this.fileUploading = true;
+
+      const url = `${API_URL}/upload`;
+      const uploadedFile = this.$refs.fileInput.files[0];
+      // console.log(uploadedFile);
+      const formData = new FormData();
+      formData.append('file-to-upload', uploadedFile);
+
+      this.$http.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then((res) => {
+        // console.log('res: ', res.data);
+        this.$refs.fileInput.value = '';
+        this.innerProduct.imageUrl = res.data.imageUrl;
+
+        Toast.fire({
+          icon: 'success',
+          title: '圖片上傳成功'
+        });
+      }).catch((err) => {
+        console.log('error: ', err.response);
+        Swal.fire({
+          title: err.response.data.message,
+          text: '',
+          icon: 'error'
+        });
+      }).finally(() => {
+        this.fileUploading = false;
+      });
     },
     handleAddOrUpdate() {
       // console.log('handleAddOrUpdate: ', this.innerProduct);
