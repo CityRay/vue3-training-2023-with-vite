@@ -33,7 +33,7 @@
               <div class="btn-group">
                 <button type="button" class="btn btn-outline-primary btn-sm"
                   @click="openCouponModal(false, item)">編輯</button>
-                <button type="button" class="btn btn-outline-danger btn-sm" @click="onDelCouponModal(item)">刪除</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" @click="onDelCoupon(item)">刪除</button>
               </div>
             </td>
           </tr>
@@ -94,12 +94,12 @@ export default {
     },
     updateOrAddCoupon(isNew, coupon) {
       // console.log('updateOrAddCoupon', isNew, coupon);
-      this.$refs.couponModal.hideModal();
       this.isLoading = true;
 
       if (isNew) {
         this.$http.post(`${API_URL}/coupon`, { data: coupon })
           .then((res) => {
+            this.$refs.couponModal.hideModal();
             this.getCoupons();
             Swal.fire({
               title: res.data.message,
@@ -118,15 +118,25 @@ export default {
           .finally(() => {
             this.isLoading = false;
           });
-      } else {
+      } else if (coupon.id) {
         this.$http.put(`${API_URL}/coupon/${coupon.id}`, { data: coupon })
           .then((res) => {
-            this.getCoupons();
-            Swal.fire({
-              title: res.data.message,
-              text: '',
-              icon: 'success'
-            });
+            // console.log(res.data);
+            if (res.data.success) {
+              this.$refs.couponModal.hideModal();
+              this.getCoupons();
+              Swal.fire({
+                title: res.data.message,
+                text: '',
+                icon: 'success'
+              });
+            } else {
+              Swal.fire({
+                title: res.data.message,
+                text: '',
+                icon: 'error'
+              });
+            }
           })
           .catch((err) => {
             // alert(err.response.data.message);
@@ -152,7 +162,7 @@ export default {
 
       this.$refs.couponModal.openModal();
     },
-    onDelCouponModal(item) {
+    onDelCoupon(item) {
       if (item.id) {
         Swal.fire({
           title: '確定刪除優惠卷?',

@@ -7,6 +7,7 @@
       <RouterLink :to="{ name: 'AdminProducts' }">產品管理</RouterLink> |
       <RouterLink :to="{ name: 'AdminOrders' }">訂單管理</RouterLink> |
       <RouterLink :to="{ name: 'AdminCoupons' }">優惠卷管理</RouterLink> |
+      <RouterLink :to="{ name: 'AdminArticles' }">文章管理</RouterLink> |
       <!-- <RouterLink to="/adminLogin">登出</RouterLink> -->
       <a href="#" @click.prevent="signOut">登出</a>
     </div>
