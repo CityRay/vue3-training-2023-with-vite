@@ -116,14 +116,18 @@ export default {
       this.$http.post(`${API_URL}/order`, { data })
         .then((res) => {
           // console.log('onFormSubmit order', res.data);
-          cb && cb();
-          this.getCart();
+          if (res.data?.orderId) {
+            this.$router.push(`/checkout/${res.data.orderId}`);
+          } else {
+            cb && cb();
+            this.getCart();
 
-          Swal.fire({
-            title: res.data.message,
-            text: '',
-            icon: 'success'
-          });
+            Swal.fire({
+              title: res.data.message,
+              text: '',
+              icon: 'success'
+            });
+          }
         })
         .catch((err) => {
           // console.log(err);
@@ -249,5 +253,4 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -6,6 +6,7 @@
         <RouterLink to="/">首頁</RouterLink> |
         <RouterLink to="/products">產品列表</RouterLink> |
         <RouterLink to="/cart">會員購物車</RouterLink> |
+        <RouterLink to="/articles">文章列表</RouterLink> |
         <RouterLink :to="{ name: 'AdminProducts' }">後台管理</RouterLink>
       </div>
     </div>
@@ -31,5 +32,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

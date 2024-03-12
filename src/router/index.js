@@ -25,9 +25,24 @@ const routes = [
         component: () => import('@/views/user/ProductDetail.vue')
       },
       {
+        path: 'checkout/:orderId',
+        name: 'Checkout',
+        component: () => import('@/views/user/CheckoutView.vue')
+      },
+      {
         path: 'cart',
         name: 'Cart',
         component: () => import('@/views/user/CartView.vue')
+      },
+      {
+        path: 'articles',
+        name: 'UserArticles',
+        component: () => import('@/views/user/UserArticles.vue')
+      },
+      {
+        path: 'article/:articleId',
+        name: 'UserArticle',
+        component: () => import('@/views/user/UserArticle.vue')
       },
       {
         path: 'about',

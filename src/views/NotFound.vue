@@ -6,7 +6,7 @@
       <p class="lead text-white">
         找不到你所尋的頁面，請確認網址是否正確。
       </p>
-      <a href="/" class="btn btn-outline-warning text-white mt-3">回到首頁</a>
+      <RouterLink to="/" class="btn btn-outline-warning text-white mt-3">回到首頁</RouterLink>
     </div>
   </div>
 </template>
@@ -16,5 +16,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
